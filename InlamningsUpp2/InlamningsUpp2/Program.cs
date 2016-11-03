@@ -29,7 +29,7 @@ namespace ConsoleApplication1
                         string inmatat2 = Console.ReadLine();
                         List<string> NyInmatat2 = inmatat2.Split(',').ToList();
 
-                        if (NyInmatat2[0].Length == 5)
+                        if (NyInmatat2[0].Length == 5 && NyInmatat2.Count == 11)
                         {
                             SqlConnection cn = new SqlConnection(conString);
                             SqlCommand cmd = new SqlCommand("InsertCustomer", cn);
@@ -63,9 +63,13 @@ namespace ConsoleApplication1
                                 cn.Dispose();
                             }
                         }
-                        else
+                        else if (NyInmatat2[0].Length != 5)
                         {
                             Console.WriteLine("CostumerID måste innhålla 5 bokstäver");
+                        }
+                        else if (NyInmatat2.Count != 11)
+                        {
+                            Console.WriteLine("Det måste finns 11 objekt! kan vara tomma");
                         }
                         Console.ReadLine();
                         break;
@@ -76,34 +80,41 @@ namespace ConsoleApplication1
                         string inmatat3 = Console.ReadLine();
                         List<string> NyInmatat3 = inmatat3.Split(',').ToList();
 
-                        SqlConnection cn2 = new SqlConnection(conString);
-                        SqlCommand cmd2 = new SqlCommand("InsertProduct", cn2);
-                        cmd2.CommandType = CommandType.StoredProcedure;
-                        cmd2.Parameters.AddWithValue("@ProductName", SqlDbType.NVarChar).Value = NyInmatat3[0].Trim();
-                        cmd2.Parameters.AddWithValue("@SupplierID", SqlDbType.Int).Value = NyInmatat3[1].Trim();
-                        cmd2.Parameters.AddWithValue("@CategoryID", SqlDbType.Int).Value = NyInmatat3[2].Trim();
-                        cmd2.Parameters.AddWithValue("@QuantityPerUnit", SqlDbType.NVarChar).Value = NyInmatat3[3].Trim();
-                        cmd2.Parameters.AddWithValue("@UnitPrice", SqlDbType.Money).Value = NyInmatat3[4].Trim();
-                        cmd2.Parameters.AddWithValue("@UnitsInStock", SqlDbType.SmallInt).Value = NyInmatat3[5].Trim();
-                        cmd2.Parameters.AddWithValue("@UnitsOnOrder", SqlDbType.SmallInt).Value = NyInmatat3[6].Trim();
-                        cmd2.Parameters.AddWithValue("@ReorderLevel", SqlDbType.SmallInt).Value = NyInmatat3[7].Trim();
-                        cmd2.Parameters.AddWithValue("@Discontinued", SqlDbType.Bit).Value = NyInmatat3[8].Trim();
+                        if(NyInmatat3.Count == 9)
+                        {
+                            SqlConnection cn2 = new SqlConnection(conString);
+                            SqlCommand cmd2 = new SqlCommand("InsertProduct", cn2);
+                            cmd2.CommandType = CommandType.StoredProcedure;
+                            cmd2.Parameters.AddWithValue("@ProductName", SqlDbType.NVarChar).Value = NyInmatat3[0].Trim();
+                            cmd2.Parameters.AddWithValue("@SupplierID", SqlDbType.Int).Value = NyInmatat3[1].Trim();
+                            cmd2.Parameters.AddWithValue("@CategoryID", SqlDbType.Int).Value = NyInmatat3[2].Trim();
+                            cmd2.Parameters.AddWithValue("@QuantityPerUnit", SqlDbType.NVarChar).Value = NyInmatat3[3].Trim();
+                            cmd2.Parameters.AddWithValue("@UnitPrice", SqlDbType.Money).Value = NyInmatat3[4].Trim();
+                            cmd2.Parameters.AddWithValue("@UnitsInStock", SqlDbType.SmallInt).Value = NyInmatat3[5].Trim();
+                            cmd2.Parameters.AddWithValue("@UnitsOnOrder", SqlDbType.SmallInt).Value = NyInmatat3[6].Trim();
+                            cmd2.Parameters.AddWithValue("@ReorderLevel", SqlDbType.SmallInt).Value = NyInmatat3[7].Trim();
+                            cmd2.Parameters.AddWithValue("@Discontinued", SqlDbType.Bit).Value = NyInmatat3[8].Trim();
 
-                        try
-                        {
-                            cn2.Open();
-                            cmd2.ExecuteNonQuery();
-                            Console.WriteLine("Ny produkt inlagd");
+                            try
+                            {
+                                cn2.Open();
+                                cmd2.ExecuteNonQuery();
+                                Console.WriteLine("Ny produkt inlagd");
 
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Antigen så är SupplierID eller CategoryID utanför gränserna");
+                            }
+                            finally
+                            {
+                                cn2.Close();
+                                cn2.Dispose();
+                            }                            
                         }
-                        catch (Exception)
+                        else if (NyInmatat3.Count != 9)
                         {
-                            Console.WriteLine("Antigen så är SupplierID eller CategoryID utanför gränserna");
-                        }
-                        finally
-                        {
-                            cn2.Close();
-                            cn2.Dispose();
+                            Console.WriteLine("Det måste finns 9 objekt! kan vara tomma");
                         }
                         Console.ReadLine();
                         break;
@@ -114,28 +125,35 @@ namespace ConsoleApplication1
                         string inmatat4 = Console.ReadLine();
                         List<string> NyInmatat4 = inmatat4.Split(',').ToList();
 
-                        SqlConnection cn3 = new SqlConnection(conString);
-                        SqlCommand cmd3 = new SqlCommand("UpdateProductPrice", cn3);
-                        cmd3.CommandType = CommandType.StoredProcedure;
-                        cmd3.Parameters.Add("@ProductID", SqlDbType.Int).Value = NyInmatat4[0].Trim();
-                        cmd3.Parameters.Add("@UnitPrice", SqlDbType.Money).Value = NyInmatat4[1].Trim();
+                        if (NyInmatat4.Count == 2)
+                        {
+                            SqlConnection cn3 = new SqlConnection(conString);
+                            SqlCommand cmd3 = new SqlCommand("UpdateProductPrice", cn3);
+                            cmd3.CommandType = CommandType.StoredProcedure;
+                            cmd3.Parameters.Add("@ProductID", SqlDbType.Int).Value = NyInmatat4[0].Trim();
+                            cmd3.Parameters.Add("@UnitPrice", SqlDbType.Money).Value = NyInmatat4[1].Trim();
 
-                        try
-                        {
-                            cn3.Open();
-                            cmd3.ExecuteNonQuery();
-                            Console.WriteLine("Priset blev uppdaterat");
+                            try
+                            {
+                                cn3.Open();
+                                cmd3.ExecuteNonQuery();
+                                Console.WriteLine("Priset blev uppdaterat");
 
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Något gick fel");
+                            }
+                            finally
+                            {
+                                cn3.Close();
+                                cn3.Dispose();
+                            }
                         }
-                        catch (Exception)
+                        else if (NyInmatat4.Count != 2)
                         {
-                            Console.WriteLine("Något gick fel");
-                        }
-                        finally
-                        {
-                            cn3.Close();
-                            cn3.Dispose();
-                        }
+                            Console.WriteLine("Det måste finns 2 objekt!");
+                        }                        
                         Console.ReadLine();
                         break;
 
