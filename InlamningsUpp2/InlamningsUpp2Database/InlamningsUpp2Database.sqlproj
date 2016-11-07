@@ -63,5 +63,6 @@
     <None Include="InsertProduct.sql" />
     <None Include="UpdateProductUnitPrice.sql" />
     <None Include="UpdateTrigger.sql" />
+    <None Include="UpdateTriggerName.sql" />
   </ItemGroup>
 </Project>

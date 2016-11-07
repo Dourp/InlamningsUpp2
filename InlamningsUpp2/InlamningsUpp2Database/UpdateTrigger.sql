@@ -10,9 +10,9 @@ GO
 -- Create date: 
 -- Description:	
 -- =============================================
-ALTER TRIGGER [dbo].[ContactNameChanged] 
+CREATE TRIGGER [dbo].[ContactNameChanged] 
    ON  [dbo].[Customers] 
-   AFTER UPDATE
+   for UPDATE
 AS 
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -21,9 +21,10 @@ BEGIN
 
     -- Insert statements for trigger here
 
-	Insert into CustomerNameChange (CustomerID, OldContactName, NewContactName)
-		select i.CustomerID, d.ContactName, i.ContactName
+	Insert into ContactNameChange ([ContactID], [OldContactName], [NewContactName], [ChangedDate], [UserId])
+		select i.ContactID, d.ContactName, i.ContactName, GETDATE(), USER_ID()
 			from inserted i
-			inner join deleted d on i.CustomerID=d.CustomerID
+				inner join deleted d on i.[CustomerID]=d.[CustomerID]
+			where d.[ContactName] <> i.[ContactName]
 
 END
