@@ -80,7 +80,7 @@ namespace ConsoleApplication1
                         string inmatat3 = Console.ReadLine();
                         List<string> NyInmatat3 = inmatat3.Split(',').ToList();
 
-                        if(NyInmatat3.Count == 9)
+                        if (NyInmatat3.Count == 9)
                         {
                             SqlConnection cn2 = new SqlConnection(conString);
                             SqlCommand cmd2 = new SqlCommand("InsertProduct", cn2);
@@ -110,7 +110,7 @@ namespace ConsoleApplication1
                             {
                                 cn2.Close();
                                 cn2.Dispose();
-                            }                            
+                            }
                         }
                         else if (NyInmatat3.Count != 9)
                         {
@@ -124,6 +124,25 @@ namespace ConsoleApplication1
                         Console.WriteLine("Mata in vilket ID på producten sen det nya priset");
                         string inmatat4 = Console.ReadLine();
                         List<string> NyInmatat4 = inmatat4.Split(',').ToList();
+
+                        SqlConnection cn4 = new SqlConnection(conString);
+                        SqlCommand command = new SqlCommand("SELECT CustomerID FROM Customers;", cn4);
+                        cn4.Open();
+
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                Console.WriteLine("{0}", reader.GetInt32(0));
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No rows found.");
+                        }
+                        reader.Close();
 
                         if (NyInmatat4.Count == 2)
                         {
@@ -147,13 +166,13 @@ namespace ConsoleApplication1
                             finally
                             {
                                 cn3.Close();
-                                cn3.Dispose();
+                                cn3.Dispose();                                
                             }
                         }
                         else if (NyInmatat4.Count != 2)
                         {
                             Console.WriteLine("Det måste finns 2 objekt!");
-                        }                        
+                        }
                         Console.ReadLine();
                         break;
 
@@ -166,7 +185,6 @@ namespace ConsoleApplication1
                         break;
                 }
             }
-            
         }
     }
 }

@@ -51,7 +51,6 @@ namespace ConsoleApplication1
                                 cn.Open();
                                 cmd.ExecuteNonQuery();
                                 Console.WriteLine("Ny customer inlagd");
-
                             }
                             catch (SqlException ex)
                             {
@@ -100,7 +99,6 @@ namespace ConsoleApplication1
                                 cn2.Open();
                                 cmd2.ExecuteNonQuery();
                                 Console.WriteLine("Ny produkt inlagd");
-
                             }
                             catch (SqlException ex)
                             {
@@ -121,7 +119,7 @@ namespace ConsoleApplication1
 
                     case 3://UpdateProductPrice();
 
-                        Console.WriteLine("Mata in vilket ID på producten sen det nya priset");
+                        Console.WriteLine("Mata in vilket ID på producten sen det nya priset(ID,pris)");
                         string inmatat4 = Console.ReadLine();
                         List<string> NyInmatat4 = inmatat4.Split(',').ToList();
 
@@ -138,7 +136,6 @@ namespace ConsoleApplication1
                                 cn3.Open();
                                 cmd3.ExecuteNonQuery();
                                 Console.WriteLine("Priset blev uppdaterat");
-
                             }
                             catch (SqlException ex)
                             {
