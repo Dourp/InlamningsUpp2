@@ -53,9 +53,9 @@ namespace ConsoleApplication1
                                 Console.WriteLine("Ny customer inlagd");
 
                             }
-                            catch (Exception)
+                            catch (SqlException ex)
                             {
-                                Console.WriteLine("Något gick fel");
+                                Console.WriteLine(ex);
                             }
                             finally
                             {
@@ -102,9 +102,9 @@ namespace ConsoleApplication1
                                 Console.WriteLine("Ny produkt inlagd");
 
                             }
-                            catch (Exception)
+                            catch (SqlException ex)
                             {
-                                Console.WriteLine("Antigen så är SupplierID eller CategoryID utanför gränserna");
+                                Console.WriteLine(ex);
                             }
                             finally
                             {
@@ -140,9 +140,9 @@ namespace ConsoleApplication1
                                 Console.WriteLine("Priset blev uppdaterat");
 
                             }
-                            catch (Exception)
+                            catch (SqlException ex)
                             {
-                                Console.WriteLine("Något gick fel");
+                                Console.WriteLine(ex);
                             }
                             finally
                             {
