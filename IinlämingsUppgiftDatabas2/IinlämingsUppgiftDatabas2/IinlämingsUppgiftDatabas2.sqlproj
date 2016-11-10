@@ -115,7 +115,7 @@
     <Build Include="dbo\Stored Procedures\UpdateRegion.sql" />
     <Build Include="dbo\Stored Procedures\EmployeeTotalSales.sql" />
     <Build Include="dbo\Stored Procedures\ProdutDelete.sql" />
-    <Build Include="dbo\Tables\ContactNameChange.sql" />
+    <Build Include="dbo\Tables\ContactNameChanges.sql" />
     <Build Include="dbo\Tiggers\ContactNameUpdate.sql" />
   </ItemGroup>
 </Project>
