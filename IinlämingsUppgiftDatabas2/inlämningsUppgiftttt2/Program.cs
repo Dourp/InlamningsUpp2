@@ -7,6 +7,8 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 
+//Data Source = (localdb)\MSSQLLocalDB;Initial Catalog = NORTHWND; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False
+
 namespace ConsoleApplication1
 {
     class Program
